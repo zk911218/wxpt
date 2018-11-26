@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html>
+    <!-- 
+    ToDo:进入页面前就应该吧订单存入数据库
+ -->
+
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+        <title>订单支付</title>
+        <link rel="stylesheet" href="css/font-awesome.min.css">
+        <link rel="stylesheet" href="https://res.wx.qq.com/open/libs/weui/1.1.3/weui.min.css">
+        <link rel="stylesheet" href="https://cdn.bootcss.com/jquery-weui/1.2.1/css/jquery-weui.min.css">
+        <script type="text/javascript" src="https://cdn.bootcss.com/jquery/1.11.0/jquery.min.js"></script>
+        <script type="text/javascript" src="https://res.wx.qq.com/open/libs/weuijs/1.1.4/weui.min.js"></script>
+        <script type="text/javascript" src="https://cdn.bootcss.com/jquery-weui/1.2.1/js/jquery-weui.min.js"></script>
+        <script type="text/javascript" src="http://res.wx.qq.com/open/js/jweixin-1.4.0.js"></script>
+
+        <style>
+            #ptxx {
+                clear: both;
+                overflow: hidden;
+                padding: 10px;
+                background-color: white;
+            }
+
+            #ptxx-l {
+                float: left;
+                height: 100px;
+                width: 100px;
+            }
+
+            #ptxx-r {
+                /* float: left; */
+                margin-left: 110px;
+                /* width: 70%; */
+            }
+
+            #ptxx-r-title {
+                font-size: 1.2rem;
+                height: 40px;
+                line-height: 20px;
+            }
+
+            #ptxx-r-rs {
+                color: #666;
+                font-size: 0.8rem;
+            }
+
+            #ptxx-r-jg {
+                width: 100%;
+            }
+
+            #ptxx-r-jg-r {
+                color: red;
+                float: right;
+            }
+
+            .weui-cell__ft{
+                font-size: 0.7rem !important;
+            }
+
+            #footer {
+                z-index: 1;
+                position: fixed;
+                bottom: 0;
+                left: 0;
+                width: 100%;
+            }
+
+            #footer-btn {
+                background: red;
+                width: 100%;
+                height: 50px;
+                line-height: 50px;
+                color: white;
+                border: 0px;
+                margin: 0px;
+                padding: 0px;
+                font-size: 1rem;
+                text-align: center;
+            }
+        </style>
+    </head>
+
+    <body>
+        <div id="app">
+            <!-- 拼团的基本信息 -->
+            <div id="ptxx">
+
+                <!-- 左侧图片 -->
+                <div id="ptxx-l">
+                    <img src="images/1.png" width="100" height="100" alt="">
+                </div>
+                <!-- 右侧信息 -->
+                <div id="ptxx-r">
+                    <div id="ptxx-r-title">XXXXXXXX</div>
+                    <div id="ptxx-r-rs">5人团</div>
+                    <div id="ptxx-r-jg">
+                        <span id="ptxx-r-jg-l">￥299.99</span>
+                        <span id="ptxx-r-jg-r">×1</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 填写用户信息 -->
+            <div class="weui-cells weui-cells_form">
+                <div class="weui-cells">
+                    <div class="weui-cell">
+                        <div class="weui-cell__hd"><label class="weui-label">姓名</label></div>
+                        <div class="weui-cell__bd">
+                            <input id="uname" class="weui-input" type="text" placeholder="请输入姓名">
+                        </div>
+                    </div>
+
+                    <div class="weui-cell weui-cell_select weui-cell_select-before">
+                        <div class="weui-cell__hd">
+                            <select class="weui-select" name="select2">
+                                <option value="1">+86</option>
+                            </select>
+                        </div>
+                        <div class="weui-cell__bd">
+                            <input id="uphone" class="weui-input" type="tel" pattern="[1][3-9][0-9]{9}" placeholder="请输入手机号码" />
+                        </div>
+                    </div>
+
+                    <div class="weui-cell">
+                        <div class="weui-cell__hd"><img src="images/wxPayIcon.png" alt="" style="width:20px;margin-right:5px;display:block"></div>
+                        <div class="weui-cell__bd">
+                            <p>微信支付</p>
+                        </div>
+                        <div class="weui-cell__ft">￥299.99</div>
+                    </div>
+
+                </div>
+            </div>
+
+            <footer id="footer">
+                <div id="footer-btn">立即支付 （￥299.99）</div>
+            </footer>
+
+            <label for="weuiAgree" class="weui-agree">
+                <span class="weui-agree__text">
+                    温馨提示：<br>
+                    1.请在5分钟内完成支付，超时系统将自动取消您的订单；<br>
+                    2.支付成功后，请注意查收微信通知。<br>
+                </span>
+            </label>
+        </div>
+    </body>
+
+    <script>
+        function removeAllSpace(str) {
+            return str.replace(/\s+/g, "");
+        }
+        $(function () {
+            $("#footer-btn").click(function () {
+                var uname = removeAllSpace($("#uname").val()),
+                    g;
+                var uphone = removeAllSpace($("#uphone").val());
+                var phone_ze = /^[1][3,4,5,7,8][0-9]{9}$/;
+                if (uname == null || uname == "") {
+                    // alert("请输入姓名");
+                    // $.toptip('请输入姓名', 'error');
+                    $.toast("请输入姓名", "forbidden");
+                } else if (!phone_ze.test(uphone)) {
+                    // $.toptip('请输入正确的手机号码', 'error');
+                    $.toast("请输入正确的手机号码", "forbidden");
+                } else {
+                    $.toptip('操作成功', 'success');
+
+                }
+            });
+        });
+
+
+        
+
+        wx.ready(function () {
+            // 1 判断当前版本是否支持指定 JS 接口，支持批量判断
+            document.querySelector('#checkJsApi').onclick = function () {
+                wx.checkJsApi({
+                    jsApiList: [
+                        'getNetworkType',
+                        'previewImage'
+                    ],
+                    success: function (res) {
+                        alert(JSON.stringify(res));
+                    }
+                });
+            };
+        });
+
+        wx.error(function (res) {
+            alert(res.errMsg);
+        });
+    </script>
+
+</html>

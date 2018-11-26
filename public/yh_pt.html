@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <title>拼团详情</title>
+    <!-- 引入样式 -->
+    <link rel="stylesheet" href="css/mint.css">
+    <link rel="stylesheet" href="css/font-awesome.min.css">
+    <!-- 先引入 Vue -->
+    <script src="js/vue.js"></script>
+    <!-- 引入组件库 -->
+    <script src="js/mint.js"></script>
+  </head>
+
+  <body>
+    <div id="app">
+      <!-- 顶部标题 -->
+      <div id="head">
+        <mt-header title="拼团详情" fixed>
+          <router-link to="/" slot="left">
+            <mt-button icon="back"></mt-button>
+          </router-link>
+          <router-link to="user.html" slot="right">
+            <i class="fa fa-user-circle-o" style="font-size:1.1rem"></i>
+          </router-link>
+        </mt-header>
+      </div>
+
+      <!-- 拼团宣传图 -->
+      <div id="swipe">
+        <mt-swipe :auto="4000" :show-indicators="false">
+          <mt-swipe-item>
+            <img src="images/1.png" alt="">
+          </mt-swipe-item>
+          <mt-swipe-item>
+            <img src="images/2.jpg" alt="">
+          </mt-swipe-item>
+          <mt-swipe-item>
+            <img src="images/3.jpg" alt="">
+          </mt-swipe-item>
+        </mt-swipe>
+      </div>
+
+      <!-- 拼团名称 -->
+      <div id="ptmc">
+        <div class="ptmc-line">
+          <span id="ptmc-title">XXXXXXXX</span>
+          <!-- <span id="ptmc-zf" class="btn-red">在线支付</span> -->
+        </div>
+        <div class="ptmc-line">
+          <span id="ptmc-jg">￥100.00</span>
+          <span id="ptmc-rs" class="btn-red">3人团</span>
+        </div>
+        <div class="ptmc-line">
+          <span id="ptmc-yj">￥338.00</span>
+        </div>
+      </div>
+
+      <!-- 拼团介绍 -->
+      <div id="ptjs">
+        <div id="ptjs-title">
+          <i class="fa fa-tags"></i>
+          <span>拼团介绍</span>
+        </div>
+        <div id="ptjs-value">解释解释解释就是计算机技术解释解释解释就是计算机</div>
+      </div>
+
+      <div id="over" class="over-color"><i class="fa fa-frown-o"></i> 小主，活动已经结束了</div>
+
+      <!-- 拼团玩法 -->
+      <div id="ptwf">
+        <img src="images/ptwf.jpg" alt="拼团玩法" width="100%">
+      </div>
+
+
+
+      <!-- 拼团详细情况 -->
+      <div id="ptxq">
+        <div class="page-part">
+          <mt-cell title="活动有效期"></mt-cell>
+          <mt-cell title="2018-10-1至2018-12-1"></mt-cell>
+        </div>
+        <div class="page-part">
+          <mt-cell title="参团须知"></mt-cell>
+          <mt-cell title="休息休息惺惺惜惺惺想寻寻惺惺惜惺惺想寻寻"></mt-cell>
+        </div>
+        <div class="page-part">
+          <mt-cell title="活动内容"></mt-cell>
+          <mt-cell title="美白补水">
+            <span style="color:#666">1次</span>
+            <span style="color:red;margin-left: 15px;">￥138</span>
+          </mt-cell>
+        </div>
+        <div class="page-part">
+          <mt-cell title="适用人群"></mt-cell>
+          <mt-cell title="不限"></mt-cell>
+        </div>
+        <div class="page-part">
+          <mt-cell title="适用门店"></mt-cell>
+          <mt-cell title="XXX店" label="地址：XXXXXX路 联系电话：1234567" to="tel:1234567">
+            <i class="fa fa-phone fa-lg" aria-hidden="true" style="color:red"></i>
+          </mt-cell>
+          <mt-cell title="XXX店" label="地址：XXXXXX路 联系电话：1234567" to="tel:1234567">
+            <i class="fa fa-phone fa-lg" aria-hidden="true" style="color:red"></i>
+          </mt-cell>
+          <mt-cell title="XXX店" label="地址：XXXXXX路 联系电话：1234567" to="tel:1234567">
+            <i class="fa fa-phone fa-lg" aria-hidden="true" style="color:red"></i>
+          </mt-cell>
+        </div>
+      </div>
+
+      <footer id="footer">
+        <a href="ph_ct.html"><button id="footer-btn">一键开团（￥100.00）</button></a>
+      </footer>
+    </div>
+  </body>
+  <style>
+    html,body {
+      height: 100%;
+      margin: 0;
+    }
+    #app{
+      padding-top: 30px;
+      padding-bottom: 40px;
+    }
+
+    .mint-header {
+      background-color: red;
+    }
+
+    #swipe {
+      width: 100%;
+      height: 300px;
+    }
+
+    .mint-swipe-item img {
+      width: 100%;
+      height: 100%;
+    }
+
+    #ptmc {
+      clear: both;
+      overflow: hidden;
+      margin: 10px;
+    }
+
+    .ptmc-line {
+      clear: both;
+      line-height: 30px;
+    }
+
+    #ptmc-title {
+      font-size: 1.2em;
+      float: left;
+    }
+
+    #ptmc-zf {
+      float: right;
+    }
+
+    #ptmc-jg {
+      font-weight: 600;
+      color: red;
+    }
+
+    #ptmc-rs {
+      color: red;
+    }
+
+    #ptmc-yj {
+      text-decoration: line-through;
+      color: #666;
+    }
+
+    .btn-red {
+      border: 1px solid red;
+      color: red;
+      padding: 3px;
+      margin-left: 5px;
+      margin-right: 5px;
+      border-radius: 5px;
+      font-size: 0.8em;
+      line-height: 1em;
+    }
+
+    #ptjs {
+      border-top: 1px dashed red;
+      padding: 10px;
+      line-height: 30px;
+    }
+
+    #ptjs-title {
+      color: red;
+    }
+
+    #ptjs-value {
+      color: #333;
+    }
+
+    #over{
+      width: 80%;
+      line-height: 40px;
+      border-radius: 20px;
+      text-align: center;
+      margin: 10px auto;
+      font-size: 1.5rem;
+      color: white;
+    }
+    .over-color{
+      background-color:dimgray !important; 
+    }
+
+    .page-part{
+      margin-bottom: 10px;
+    }
+
+    #footer {
+      z-index: 1;
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+    }
+
+    #footer-btn {
+      background: red;
+      width: 100%;
+      height: 40px;
+      line-height: 40px;
+      color: white;
+      border: 0px;
+      margin: 0px;
+      padding: 0px;
+      font-size: 1rem;
+    }
+  </style>
+  <script>
+    new Vue({
+      el: '#head'
+    });
+
+    new Vue({
+      el: '#swipe',
+      methods: {
+        handleChange(index) {
+          showIndicators: false
+        }
+      }
+    });
+
+    new Vue({
+      el: '#ptxq'
+    });
+  </script>
+
+</html>
