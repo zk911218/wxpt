@@ -13,13 +13,13 @@
 
 <body>
     <div class="app">
-        <form class="weui-cells weui-cells_form" action="" method="POST" >
+        <div class="weui-cells weui-cells_form">
             <div class="weui-cell weui-cell">
                 <div class="weui-cell__hd">
                     <label class="weui-label">用户账号</label>
                 </div>
                 <div class="weui-cell__bd">
-                    <input class="weui-input" placeholder="请输入用户账号" name="yhid" id="yhid">
+                    <input class="weui-input" placeholder="请输入用户账号" name="shid" id="shid">
                 </div>
             </div>
             <div class="weui-cell weui-cell">
@@ -27,24 +27,48 @@
                     <label class="weui-label">用户密码</label>
                 </div>
                 <div class="weui-cell__bd">
-                    <input class="weui-input" type="password" name="yhpwd" id="yhpwd">
+                    <input class="weui-input" type="password" name="shpwd" id="shpwd">
                 </div>
             </div>
             <br><br>
-            <button class="weui-btn weui-btn_primary">登 &nbsp; 陆</button>
-        </form>
+            <button class="weui-btn weui-btn_primary" id="btn">登 &nbsp; 陆</button>
+        </div>
 
     </div>
 </body>
 <script src="https://cdn.bootcss.com/jquery/1.11.0/jquery.min.js"></script>
 <script src="https://cdn.bootcss.com/jquery-weui/1.2.1/js/jquery-weui.min.js"></script>
+<script src="http://www.gongjuji.net/Content/files/jquery.md5.js"></script>
 <script>
-    $(function(params) {
-        var yhid    =   trim($("#yhid")).val();
-        var yhpwd   =   md5(trim($("#yhpwd").val()));
-        if (yhid != "" && yhid != null && yhpwd != "" && yhpwd != null) {
-            
-        }
-    })
+    $(function() {
+        $("#btn").click(function() {
+            var shid = $.trim($("#shid").val());
+            var shpwd = $.trim($("#shpwd").val());
+            if (shid != "" && shid != null) {
+                if (shpwd != "" && shpwd != null) {
+                    shpwd = $.md5(shpwd);
+                    $.post("lib/sh_login.php", {
+                        uid: shid,
+                        upwd: shpwd
+                    }, function(date) {
+                        if (date == "success") {
+                            window.location.href = myUrl;
+                        } else if (date == "error") {
+                            $.toptip('账号或密码错误', 'error');
+                        } else {
+                            $.toptip('错误', 'error');
+                        }
+                    })
+                } else {
+                    $.toptip('请输入密码', 'warning');
+                    $("#yhpwd").focus();
+                }
+            } else {
+                $.toptip('请输入账号', 'warning');
+                $("#yhid").focus();
+            }
+        });
+    });
 </script>
+
 </html>
