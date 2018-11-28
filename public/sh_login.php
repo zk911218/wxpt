@@ -33,7 +33,7 @@
             <br><br>
             <button class="weui-btn weui-btn_primary" id="btn">登 &nbsp; 陆</button>
         </div>
-
+        <div id="con"></div>
     </div>
 </body>
 <script src="https://cdn.bootcss.com/jquery/1.11.0/jquery.min.js"></script>
@@ -44,6 +44,7 @@
         $("#btn").click(function() {
             var shid = $.trim($("#shid").val());
             var shpwd = $.trim($("#shpwd").val());
+            var myUrl = "sh_index.php";
             if (shid != "" && shid != null) {
                 if (shpwd != "" && shpwd != null) {
                     shpwd = $.md5(shpwd);
@@ -51,6 +52,8 @@
                         uid: shid,
                         upwd: shpwd
                     }, function(date) {
+                        // $("#con").html("");
+                        // $("#con").append(date);
                         if (date == "success") {
                             window.location.href = myUrl;
                         } else if (date == "error") {

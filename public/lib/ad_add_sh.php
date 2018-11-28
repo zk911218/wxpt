@@ -1,8 +1,9 @@
 <?php
-    session_start();
+    // session_start();
     include_once("conn.php");
-    $_SESSION['ad']['ad_id'] = 1;
-    $ad_id      =   $_SESSION['ad']['ad_id'] ? $_SESSION['ad']['ad_id'] : null;
+    // $_SESSION['ad']['ad_id'] = 1;
+    // $ad_id      =   $_SESSION['ad']['ad_id'] ? $_SESSION['ad']['ad_id'] : null;
+    $ad_id      =   1;
     $ad_id      =   mysqli_real_escape_string($link, strip_tags(trim($ad_id)));
     $yhname     =   mysqli_real_escape_string($link, strip_tags(trim($_POST["yhname"])));
     $yhid       =   mysqli_real_escape_string($link, strip_tags(trim($_POST["yhid"])));
@@ -11,6 +12,15 @@
     $yhnum      =   mysqli_real_escape_string($link, strip_tags(trim($_POST["yhnum"])));
     $yhadd      =   mysqli_real_escape_string($link, strip_tags(trim($_POST["yhadd"])));
     $yhtel      =   mysqli_real_escape_string($link, strip_tags(trim($_POST["yhtel"])));
+    
+    // $ad_id      =   1;
+    // $yhname     =   2;
+    // $yhid       =   3;
+    // $yhpwd      =   4;
+    // $yhdate     =   "2019-02-06";
+    // $yhnum      =   6;
+    // $yhadd      =   7;
+    // $yhtel      =   "12345678918";
 
     if ($ad_id != null && $ad_id != "") {
         if (preg_match("/^[1-9]\d*|0$/", $yhnum)) {
@@ -22,40 +32,31 @@
                     // bool password_verify ( string $password , string $hash )
                     $yhpwd  =   password_hash($yhpwd, PASSWORD_DEFAULT);
                     $yhState=   "Y";
-                    $sql    =   "select * from wx_pt_sh";
-
-                    // $sql    =   "INSERT INTO wx_pt_sh(sh_name,sh_id,sh_pwd,sh_yxq,sh_max_ci,sh_dz,sh_insert_id,sh_dh,sh_state) VALUES ('$yhname','$yhid','$yhpwd','$yhdate','$yhnum','$yhadd','$ad_id','$yhtel','$yhState')";
-                    // $sql = "INSERT INTO wx_pt_sh(sh_name,sh_id,sh_pwd,sh_yxq,sh_max_ci,sh_dz,sh_insert_id,sh_dh,sh_state) VALUES ('莆田整容整形医院02店','pt01','$2y$10$86d.e9VD9Rqgz4rGwM2ZS.3wERx6Hf94W3BovNr39wGVukmxJUXyi','2019/01/31','100','莆田市莆田整容整形医院02店','1','03111554499','Y');";
+                    $sql = "INSERT INTO wxpt.wx_pt_sh(`sh_name`,`sh_id`,`sh_pwd`,`sh_yxq`,`sh_max_ci`,`sh_dz`,`sh_insert_id`,`sh_dh`,`sh_state`) VALUES ('$yhname','$yhid','$yhpwd','$yhdate','$yhnum','$yhadd','$ad_id','$yhtel','Y');";
                     // echo $sql;
                     $yh     =   mysqli_query($link, $sql);
-                    while ($row = mysqli_fetch_assoc($yh)) {
-                        for ($i=0; $i<14; $i++) {
-                            echo $row[$i]." | ";
-                        }
-                        echo "<br>";
-                    }
                     
                     if ($yh) {
                         // 添加成功
-                        echo "添加成功";
+                        echo "success";
                     } else {
                         // 添加失败
-                        echo "添加失败";
+                        echo "error1";
                     }
                 } else {
                     // 提交的数据有空值
-                    echo "提交的数据有空值";
+                    echo "error2";
                 }
             } else {
                 // 电话错误
-                echo "电话错误";
+                echo "error3";
             }
         } else {
             // 最大开团数错误
-            echo "最大开团数错误";
+            echo "error4";
         }
     } else {
         // 没有权限，返回管理员登陆页面
-        echo "没有权限";
+        echo "error5";
     }
     mysqli_close($link);

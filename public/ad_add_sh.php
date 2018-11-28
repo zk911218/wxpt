@@ -13,7 +13,8 @@
 
 <body>
     <div class="app">
-        <form class="weui-cells weui-cells_form" id="form" action="lib\ad_add_sh.php" method="post">
+        <!-- <form class="weui-cells weui-cells_form" id="form" action="lib\ad_add_sh.php" method="post"> -->
+        <div class="weui-cells weui-cells_form" id="form">
             <div class="weui-cell">
                 <div class="weui-cell__hd"><label class="weui-label">商户名</label></div>
                 <div class="weui-cell__bd">
@@ -70,8 +71,9 @@
                 </div>
             </div>
             <br>
-            <button class="weui-btn weui-btn_primary" id="btn" type="submit">确定增加用户</button>
-        </form>
+            <button class="weui-btn weui-btn_primary" id="btn">确定增加用户</button>
+        </div>
+        <div id="con"></div>
 
     </div>
 </body>
@@ -194,51 +196,115 @@
     // }, "请输入正确的电话");
 
 
-    // $(function() {
-    //     $("#btn").click(function() {
-    //         var yhname = $.trim($("#yhname").val());
-    //         var yhid = $.trim($("#yhid").val());
-    //         var yhpwd = $.trim($("#yhpwd").val());
-    //         var yhdate = $.trim($("#yhdate").val());
-    //         var yhnum = $.trim($("#yhnum").val());
-    //         var yhadd = $.trim($("#yhadd").val());
-    //         var yhtel = $.trim($("#yhtel").val());
+    $(function() {
+        $("#btn").click(function() {
+            var yhname = $.trim($("#yhname").val());
+            var yhid = $.trim($("#yhid").val());
+            var yhpwd = $.trim($("#yhpwd").val());
+            var yhdate = $.trim($("#yhdate").val());
+            var yhnum = $.trim($("#yhnum").val());
+            var yhadd = $.trim($("#yhadd").val());
+            var yhtel = $.trim($("#yhtel").val());
+            // alert("dd");
+            $("#con").html("");
+            // $("#con").append("<br>yhname:"+yhname);
+            // $("#con").append("<br>yhid:"+yhid);
+            // $("#con").append("<br>yhpwd:"+yhpwd);
+            // $("#con").append("<br>yhdate:"+yhdate);
+            // $("#con").append("<br>yhnum:"+yhnum);
+            // $("#con").append("<br>yhadd:"+yhadd);
+            // $("#con").append("<br>yhtel:"+yhtel);
 
-    //         if (shid != "" && shid != null) {
-    //             if (shpwd != "" && shpwd != null) {
-    //                 shpwd = $.md5(shpwd);
-    //                 $.post("lib/sh_login.php", {
-    //                     uid: shid,
-    //                     upwd: shpwd
-    //                 }, function(date) {
-    //                     if (date == "success") {
-    //                         window.location.href = myUrl;
-    //                     } else if (date == "error") {
-    //                         $.toptip('账号或密码错误', 'error');
-    //                     } else {
-    //                         $.toptip('错误', 'error');
-    //                     }
-    //                 })
-    //             } else {
-    //                 $.toptip('请输入密码', 'warning');
-    //                 $("#yhpwd").focus();
-    //             }
-    //         } else {
-    //             $.toptip('请输入账号', 'warning');
-    //             $("#yhid").focus();
-    //         }
-    //     });
-    // });
+
+            if (yhname!=null&&yhname!=""&&yhid!=null&&yhid!=""&&yhpwd!=null&&yhpwd!=""&&yhdate!=null&&yhdate!=""&&yhnum!=null&&yhnum!=""&&yhadd!=null&&yhadd!=""&&yhtel!=null&&yhtel!="") {
+                // alert("进来了");
+                // $("#con").append("<br>进来了<br>");
+                yhpwd = $.md5(yhpwd);
+                $.post("lib/ad_add_sh.php", {
+                        yhname: yhname,
+                        yhid: yhid,
+                        yhpwd: yhpwd,
+                        yhdate: yhdate,
+                        yhnum: yhnum,
+                        yhadd: yhadd,
+                        yhtel: yhtel
+                    }, function(date) {
+                        // alert(date);
+                        $("#con").append(date);
+                        switch (date) {
+                            case "success":
+                                $.toast('添加成功');
+                                // window.location.href = myUrl;
+                                break;
+                            case "error1":
+                                $.toptip('添加失败', 'error');
+                                break;
+                            case "error2":
+                                $.toptip('提交的数据有空值', 'error');
+                                break;
+                            case "error3":
+                                $.toptip('电话填写错误', 'error');
+                                break;
+                            case "error4":
+                                $.toptip('最大开团数错误', 'error');
+                                break;
+                            case "error5":
+                                $.toptip('没有权限', 'error');
+                                window.location.href = loginUrl;
+                                break;
+                            default:
+                                break;
+                        }
+                        
+                        // if (date == "success") {
+                        //     window.location.href = myUrl;
+                        // } else if (date == "error") {
+                        //     $.toptip('账号或密码错误', 'error');
+                        // } else {
+                        //     $.toptip('错误', 'error');
+                        // }
+                    })
+            }
+
+            // if (shid != "" && shid != null) {
+            //     if (shpwd != "" && shpwd != null) {
+            //         shpwd = $.md5(shpwd);
+            //         $.post("lib/sh_login.php", {
+            //             uid: shid,
+            //             upwd: shpwd
+            //         }, function(date) {
+            //             if (date == "success") {
+            //                 window.location.href = myUrl;
+            //             } else if (date == "error") {
+            //                 $.toptip('账号或密码错误', 'error');
+            //             } else {
+            //                 $.toptip('错误', 'error');
+            //             }
+            //         })
+            //     } else {
+            //         $.toptip('请输入密码', 'warning');
+            //         $("#yhpwd").focus();
+            //     }
+            // } else {
+            //     $.toptip('请输入账号', 'warning');
+            //     $("#yhid").focus();
+            // }
+        });
+    });
 
     $("#yhdate").calendar({
         minDate: Date() + 1,
         dateFormat: 'yyyy-mm-dd'
     });
-    $(function() {
-        $("#yhpwd").change(function() {
-            $("#yhpwd").val($.md5($("#yhpwd").val()));
-        })
-    })
+
+
+    // $(function() {
+    //     $("#yhpwd").change(function() {
+    //         $("#yhpwd").val($.md5($("#yhpwd").val()));
+    //     })
+    // });
+
+
     // weui.form.validate('#form', function(error) {
     //     if (!error) {
     //         var loading = weui.loading('提交中...');
