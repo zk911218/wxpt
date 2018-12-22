@@ -1,3 +1,10 @@
+<?php
+    session_start();
+    if(!isset($_SESSION['shUser'])||$_SESSION['shUser']['id']<>0){
+       Header("Location: ../login.php"); 
+       exit;
+    }
+?>
 <!DOCTYPE html>
 <html>
 
