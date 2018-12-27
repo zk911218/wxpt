@@ -1,0 +1,16 @@
+{
+    "host": "123.207.44.252",
+    "username": "root",
+    "password": "zk911218",
+    "remotePath": ".",
+    "protocol": "ftp",
+    "port": 0,
+    "fileNameEncoding": "utf8",
+    "autoUpload": true,
+    "autoDelete": false,
+    "autoDownload": false,
+    "ignore": [
+        ".git",
+        "/.vscode"
+    ]
+}
