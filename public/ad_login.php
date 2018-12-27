@@ -46,12 +46,12 @@
             if (shid != "" && shid != null) {
                 if (shpwd != "" && shpwd != null) {
                     shpwd = $.md5(shpwd);
-                    $.post("lib/sh_login.php", {
+                    $.post("lib/ad_login.php", {
                         uid: shid,
                         upwd: shpwd
                     }, function(data) {
                         if (data == "success") {
-                            window.location.href = "sh_index.php";
+                            window.location.href = "ad_index.php";
                         }else if (data == "error"){
                             $.toptip('账号或密码错误', 'error');
                         }else{

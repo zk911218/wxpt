@@ -1,7 +1,7 @@
 <?php
     session_start();
-    if(!isset($_SESSION['shUser'])){
-       Header("Location: sh_login.php"); 
+    if(!isset($_SESSION['adUser'])){
+       Header("Location: ad_login.php"); 
        exit;
     }
 ?>
@@ -10,7 +10,7 @@
 <head>
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>主页</title>
+    <title>管理后台</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://cdn.bootcss.com/weui/1.1.3/style/weui.min.css">
     <link rel="stylesheet" href="css/font.css">
@@ -42,51 +42,48 @@
 </head>
 <body>
     <div id="page">
-        <div class="pic">
-            <div class="swiper-slide"><img src="images/pin.png" alt=""></div>
-        </div>
         <div class="weui-grids">
-            <a href="sh_new_pt.php" class="weui-grid js_grid">
+            <a href="ad_add_sh.php" class="weui-grid js_grid">
                 <div class="weui-grid__icon">
-                    <i class="iconfont">&#xe602;</i>
+                    <i class="iconfont">&#xe60b;</i>
                 </div>
                 <p class="weui-grid__label">
-                    新增拼团
+                    新增商户
                 </p>
             </a>
-            <a href="sh_pt.php#now" class="weui-grid js_grid">
+            <a href="ad_sh_list.php" class="weui-grid js_grid">
                 <div class="weui-grid__icon">
-                    <i class="iconfont">&#xe621;</i>
+                    <i class="iconfont">&#xe60e;</i>
                 </div>
                 <p class="weui-grid__label">
-                    当前拼团
+                    当前商户
                 </p>
             </a>
-            <a href="sh_pt.php#history" class="weui-grid js_grid">
+            <a href="" class="weui-grid js_grid">
                 <div class="weui-grid__icon">
-                    <i class="iconfont">&#xe60a;</i>
+                    <i class="iconfont">&#xe609;</i>
                 </div>
                 <p class="weui-grid__label">
-                    历史拼团
+                    平台拼团
                 </p>
             </a>
-            <a href="sh_gmcx.php" class="weui-grid js_grid">
+            <a href="" class="weui-grid js_grid">
                 <div class="weui-grid__icon">
-                    <i class="iconfont">&#xe600;</i>
+                    <i class="iconfont">&#xe60c;</i>
                 </div>
                 <p class="weui-grid__label">
-                    订单查询
+                    平台订单
                 </p>
             </a>
-            <a href="sh_zd.php" class="weui-grid js_grid">
+            <a href="" class="weui-grid js_grid">
                 <div class="weui-grid__icon">
-                    <i class="iconfont">&#xe757;</i>
+                    <i class="iconfont">&#xe61e;</i>
                 </div>
                 <p class="weui-grid__label">
-                    账单
+                    平台账单
                 </p>
             </a>
-            <a href="sh_my.php" class="weui-grid js_grid">
+            <a href="" class="weui-grid js_grid">
                 <div class="weui-grid__icon">
                     <i class="iconfont">&#xe603;</i>
                 </div>

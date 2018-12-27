@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<!-- 
+    url 要跳转的页面。注意：没有后缀
+    format 要跳转的页面的后缀
+    paraKey 要跳转的页面的参数
+    paraValue 要跳转的页面的参数的值
+    state 成功还是失败？[success|error]
+    msgCon = 显示的消息内容
+ -->
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title></title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://cdn.bootcss.com/weui/1.1.3/style/weui.min.css">
+    <link rel="stylesheet" href="https://cdn.bootcss.com/jquery-weui/1.2.1/css/jquery-weui.min.css">
+</head>
+
+<body>
+    <div class="weui-msg">
+        <div class="weui-msg__icon-area"><i class="weui-icon_msg" id="msgIcon"></i></div>
+        <div class="weui-msg__text-area">
+            <h2 class="weui-msg__title" id="msgTitle"></h2>
+            <p class="weui-msg__desc" id="msgCon"></p>
+        </div>
+        <div class="weui-msg__opr-area">
+            <p class="weui-btn-area">
+                <a href="" class="weui-btn weui-btn_primary" id="btn">推荐操作</a>
+            </p>
+        </div>
+    </div>
+</body>
+<script src="https://cdn.bootcss.com/jquery/1.11.0/jquery.min.js"></script>
+<script src="https://res.wx.qq.com/open/libs/weuijs/1.1.3/weui.min.js"></script>
+<script src="https://cdn.bootcss.com/jquery-weui/1.2.1/js/jquery-weui.min.js"></script>
+<script>
+    // var str = location.href; //取得整个地址栏
+    // var num = str.indexOf("?")
+    // str = str.substr(num + 1); //取得所有参数
+
+    function GetQueryString(name) {
+        var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)");
+        var r = window.location.search.substr(1).match(reg);
+        if (r != null) return unescape(r[2]);
+        return null;
+    }
+    var url = GetQueryString('url');
+    var format = GetQueryString('format');
+    var paraKey = GetQueryString('paraKey');
+    var paraValue = GetQueryString('paraValue');
+    var state = GetQueryString('state');
+    var msgCon = GetQueryString('msgCon');
+    var nextUrl = url + "." + format + "?" + paraKey + "=" + paraValue;
+
+    if (state == "success") {
+        $('title').append("操作成功");
+        $('#msgIcon').addClass("weui-icon-success");
+        $('#msgTitle').append("操作成功");
+    } else if (state == "error") {
+        $('title').append("操作错误");
+        $('#msgIcon').addClass("weui-icon-error");
+        $('#msgTitle').append("操作错误");
+    }
+    $('#msgCon').append(msgCon);
+    $(function () {
+        $("#btn").click(function () {
+            window.location.href = nextUrl;
+        })
+    })
+</script>
+
+</html>

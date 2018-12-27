@@ -1,17 +1,28 @@
 <?php
-    // session_start();
+    session_start();
     include_once("conn.php");
-    // $_SESSION['ad']['ad_id'] = 1;
-    // $ad_id      =   $_SESSION['ad']['ad_id'] ? $_SESSION['ad']['ad_id'] : null;
-    $ad_id      =   1;
+    if(!isset($_SESSION['adUser'])){
+       Header("Location:ad_login.php"); 
+       exit;
+    }
+    $ad_id      =   isset($_SESSION['adUser']['id']) ? $_SESSION['adUser']['id'] : null;
+    $yhname     =   isset($_POST["yhname"]) ? $_POST["yhname"] : 0;
+    $yhid       =   isset($_POST["yhid"]) ? $_POST["yhid"] : 0;
+    $yhpwd      =   isset($_POST["yhpwd"]) ? $_POST["yhpwd"] : 0;
+    $yhdate     =   isset($_POST["yhdate"]) ? $_POST["yhdate"] : 0;
+    $yhnum      =   isset($_POST["yhnum"]) ? $_POST["yhnum"] : 0;
+    $yhadd      =   isset($_POST["yhadd"]) ? $_POST["yhadd"] : 0;
+    $yhtel      =   isset($_POST["yhtel"]) ? $_POST["yhtel"] : 0;
+
     $ad_id      =   mysqli_real_escape_string($link, strip_tags(trim($ad_id)));
-    $yhname     =   mysqli_real_escape_string($link, strip_tags(trim($_POST["yhname"])));
-    $yhid       =   mysqli_real_escape_string($link, strip_tags(trim($_POST["yhid"])));
-    $yhpwd      =   mysqli_real_escape_string($link, strip_tags(trim($_POST["yhpwd"])));
-    $yhdate     =   mysqli_real_escape_string($link, strip_tags(trim($_POST["yhdate"])));
-    $yhnum      =   mysqli_real_escape_string($link, strip_tags(trim($_POST["yhnum"])));
-    $yhadd      =   mysqli_real_escape_string($link, strip_tags(trim($_POST["yhadd"])));
-    $yhtel      =   mysqli_real_escape_string($link, strip_tags(trim($_POST["yhtel"])));
+    $yhname     =   mysqli_real_escape_string($link, strip_tags(trim($yhname)));
+    $yhid       =   mysqli_real_escape_string($link, strip_tags(trim($yhid)));
+    $yhpwd      =   mysqli_real_escape_string($link, strip_tags(trim($yhpwd)));
+    $yhdate     =   mysqli_real_escape_string($link, strip_tags(trim($yhdate)));
+    $yhnum      =   mysqli_real_escape_string($link, strip_tags(trim($yhnum)));
+    $yhadd      =   mysqli_real_escape_string($link, strip_tags(trim($yhadd)));
+    $yhtel      =   mysqli_real_escape_string($link, strip_tags(trim($yhtel)));
+
     
     // $ad_id      =   1;
     // $yhname     =   2;
@@ -32,7 +43,8 @@
                     // bool password_verify ( string $password , string $hash )
                     $yhpwd  =   password_hash($yhpwd, PASSWORD_DEFAULT);
                     $yhState=   "Y";
-                    $sql = "INSERT INTO wxpt.wx_pt_sh(`sh_name`,`sh_id`,`sh_pwd`,`sh_yxq`,`sh_max_ci`,`sh_dz`,`sh_insert_id`,`sh_dh`,`sh_state`) VALUES ('$yhname','$yhid','$yhpwd','$yhdate','$yhnum','$yhadd','$ad_id','$yhtel','Y');";
+                    $yh_id_hash =   com_create_guid();  //生成该用户的唯一标识符
+                    $sql = "INSERT INTO wxpt.wx_pt_sh(`sh_name`,`sh_id`,`sh_pwd`,`sh_yxq`,`sh_max_ci`,`sh_dz`,`sh_insert_id`,`sh_dh`,`sh_state`,`sh_id_hash`) VALUES ('$yhname','$yhid','$yhpwd','$yhdate','$yhnum','$yhadd','$ad_id','$yhtel','Y','$yh_id_hash');";
                     // echo $sql;
                     $yh     =   mysqli_query($link, $sql);
                     
