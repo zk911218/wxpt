@@ -3,8 +3,23 @@
     $t_id   =   isset($_GET["t"])  ?   $_GET["t"]  :   0;
     $t_id   =   mysqli_real_escape_string($link, strip_tags(trim($t_id)));
     $t_id   =   1;
-    $sql    =   "SELECT * FROM wx_pt_pt WHERE pt_id = '$t_id';";
-    $pt     =   mysqli_fetch_array(mysqli_query($link, $sql));
+    if (!$t_id) {
+        Header("Location: pt_list.html"); 
+        exit;
+    }
+    
+    $sql    =   "SELECT id,pt_id,pt_sh_id,pt_mc,pt_jg,pt_js,pt_tp,pt_yxqq,pt_yxqz,pt_ctxz,pt_lx,pt_max_num,pt_state FROM wx_pt_pt WHERE pt_id = ?;";
+    $links=  mysqli_stmt_init($link);
+    if(mysqli_stmt_prepare($links, $sql)){
+      mysqli_stmt_bind_param($links,'s',$t_id);
+        mysqli_stmt_bind_result($links,$id,$pt_id,$pt_sh_id,$pt_mc,$pt_jg,$pt_js,$pt_tp,$pt_yxqq,$pt_yxqz,$pt_ctxz,$pt_lx,$pt_max_num,$pt_state);
+        mysqli_stmt_execute($links);
+        mysqli_stmt_fetch($links);
+        mysqli_stmt_close($links);
+    }else{
+        exit;
+    }
+    // $pt     =   mysqli_fetch_array(mysqli_query($link, $sql));
 ?>
 <!DOCTYPE html>
 <html>
@@ -49,13 +64,13 @@
             <img src="images/3.jpg" alt="">
           </mt-swipe-item>
         </mt-swipe> -->
-        <img height=300 src="<?php echo $pt["pt_tp"]; ?>" alt="<?php echo $pt["pt_mc"]; ?>">
+        <img height=300 src="<?php echo $pt_tp; ?>" alt="<?php echo $pt_mc; ?>">
       </div>
 
       <!-- 拼团名称 -->
       <div id="ptmc">
         <div class="ptmc-line">
-          <span id="ptmc-title"><?php echo $pt["pt_mc"]; ?></span>
+          <span id="ptmc-title"><?php echo $pt_mc; ?></span>
           <!-- <span id="ptmc-zf" class="btn-red">在线支付</span> -->
         </div>
         <?php
@@ -73,7 +88,7 @@
               <?php 
                 $sql_jg =   "SELECT sum(xm_jg) FROM wx_pt_pt_ptxm WHERE xm_state = 'Y' AND xm_pt_id = '$t_id';";
                 $jg     =   mysqli_fetch_array(mysqli_query($link, $sql_jg));
-                echo $jg[0]."&nbsp;&nbsp;"; 
+                echo $jg[0]*100 . "&nbsp;&nbsp;"; 
               ?>
         </span>
         </div>
@@ -85,15 +100,15 @@
           <i class="fa fa-tags"></i>
           <span>拼团介绍</span>
         </div>
-        <div id="ptjs-value"><?php echo $pt["pt_js"]; ?></div>
+        <div id="ptjs-value"><?php echo $pt_js; ?></div>
       </div>
 <?php
     $pt_yxq = 0;
-    if (strtotime($pt["pt_yxqq"]) > strtotime(date("Y/m/d"))) {
+    if (strtotime($pt_yxqq) > strtotime(date("Y/m/d"))) {
         // 未开始
         $pt_yxq =   1;
         echo "<div id='over' class='over-color'><i class='fa fa-frown-o'></i> 小主，活动还没有开始</div>";
-    }elseif(strtotime($pt["pt_yxqz"]) < strtotime(date("Y/m/d"))){
+    }elseif(strtotime($pt_yxqz) < strtotime(date("Y/m/d"))){
         // 已经结束
         $pt_yxq =   2;
         echo "<div id='over' class='over-color'><i class='fa fa-frown-o'></i> 小主，活动已经结束了</div>";
@@ -111,11 +126,11 @@
       <div id="ptxq">
         <div class="page-part">
           <mt-cell title="活动有效期"></mt-cell>
-          <mt-cell title="<?php echo $pt["pt_yxqq"]; ?>至<?php echo $pt["pt_yxqz"]; ?>"></mt-cell>
+          <mt-cell title="<?php echo $pt_yxqq; ?>至<?php echo $pt_yxqz; ?>"></mt-cell>
         </div>
         <div class="page-part">
           <mt-cell title="参团须知"></mt-cell>
-          <mt-cell title="<?php echo $pt["pt_ctxz"]; ?>"></mt-cell>
+          <mt-cell title="<?php echo $pt_ctxz; ?>"></mt-cell>
         </div>
         <div class="page-part">
           <mt-cell title="活动内容"></mt-cell>
@@ -138,7 +153,7 @@
         <div class="page-part">
           <mt-cell title="适用门店"></mt-cell>
           <?php
-            $pt_sh_id   =   $pt["pt_sh_id"];
+            // $pt_sh_id   =   $pt_sh_id;
             $sql_sh        =   "SELECT sh_name,sh_dh,sh_dz FROM wx_pt_sh WHERE id=$pt_sh_id";
             $sh     =   mysqli_fetch_array(mysqli_query($link, $sql_sh));
           ?>
