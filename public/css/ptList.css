@@ -1,0 +1,137 @@
+.f-l{
+    float: left;
+}
+.f-r{
+    float: right;
+}
+.container-fluid{
+    margin: 0px;
+    padding: 0px;
+}
+.head-menu{
+    height: 14px;
+    line-height: 14px;
+    margin: 13px 10px;
+}
+.head-menu-center{
+    text-align: center;
+    margin: auto;
+    font-size: 18px;
+}
+.head-menu-question{
+    font-size: 14px;
+    color: red;
+}
+.head-menu-right{
+    text-align: right;
+    display: block;
+    color: red;
+}
+.zk-navbar{
+    height: 50px;
+}
+.navbar-item{
+    background-color: white;
+    color: dimgrey;
+    border: 0px;
+    text-align: center;
+    line-height: 48px;
+}
+.navbar-item-on{
+    color: red;
+    border-bottom: 2px solid red;
+    background-color: white;
+}
+.navbar-panel{
+    overflow: hidden;
+    clear: both;
+    background-color: rgb(240, 240, 240);
+}
+.navbar-item-panel{
+    display: none;
+    margin: 10px;
+}
+.navbar-item-panel-on{
+    display: block;
+}
+.zk-ka{
+    background-color: white;
+    padding: 10px;
+    overflow: hidden;
+    margin-bottom: 10px;
+    border-radius: 7px;
+}
+.ka-title{
+    position: relative;
+}
+.ka-title-title{
+    font-size: 16px;
+}
+.ka-kaituan{
+    clear: both;
+    display: block;
+    margin-top: 10px;
+}
+.ka-kaituan-qk{
+    float: left;
+    background-color: rgb(240, 240, 240);
+    display: block;
+    padding: 10px;
+    width: 80px;
+    height: 80px;
+}
+.ka-kaituan-qk+.ka-kaituan-qk{
+    margin-left: 10px;
+}
+.ka-kaituan-shuzi-qk-shuzi{
+    display: block;
+    font-size: 18px;
+    text-align: center;
+}
+.ka-kaituan-shuzi-qk-wenzi{
+    display: block;
+    text-align: center;
+}
+.ka-kaituan-btn{
+    height: 90px;
+    line-height: 90px;
+    position: relative;
+    z-index: 10;
+}
+.ka-tuan{
+    clear: both;
+    margin-top: 5px;
+}
+.ka-tuan li{
+    list-style: none;
+    font-size: 12px;
+}
+.ka-tuan-i{
+    color: red;
+}
+.ka-shouru{
+    clear: both;
+}
+.ka-shouru-1{
+    color: red;
+    font-size: 12px;
+}
+.ka-shouru-2{
+    color: red;
+    font-size: 16px;
+}
+.ka-time{
+    font-size: 12px;
+    font-size: #333;
+    clear: both;
+}
+.ka-title-bg{
+    /* background: url(../images/cg.png) center center no-repeat; */
+    height: 80px;
+    width: 80px;
+    position: absolute;
+    top: -30px;
+    right: 0px;
+    float: right;
+    opacity: 0.5;
+}
