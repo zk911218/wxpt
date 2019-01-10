@@ -2,7 +2,10 @@
     include_once("lib/conn.php");
     $t_id   =   isset($_GET["t"])  ?   $_GET["t"]  :   0;
     $t_id   =   mysqli_real_escape_string($link, strip_tags(trim($t_id)));
-    $t_id   =   1;
+    // TODO:
+    if($DEBUG){
+      $t_id   =   1;
+    }
     if (!$t_id) {
         Header("Location: pt_list.html"); 
         exit;

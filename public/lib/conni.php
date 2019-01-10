@@ -1,5 +1,6 @@
 <?php
-$link = new mysqli('localhost', 'wx', 'zk911218', 'wxpt');
+include_once("info.php");
+$link = new mysqli($ip, $mysqlUser, $mysqlPwd, $nysqlName);
 if (mysqli_connect_errno()){
     echo '数据库连接错误'.mysqli_connect_error();
     exit();

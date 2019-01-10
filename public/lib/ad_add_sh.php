@@ -43,7 +43,8 @@
                     // bool password_verify ( string $password , string $hash )
                     $yhpwd  =   password_hash($yhpwd, PASSWORD_DEFAULT);
                     $yhState=   "Y";
-                    $yh_id_hash =   com_create_guid();  //生成该用户的唯一标识符
+                    // $yh_id_hash =   com_create_guid();  //生成该用户的唯一标识符
+                    $yh_id_hash =   md5(uniqid(microtime(true),true));
                     $sql = "INSERT INTO wxpt.wx_pt_sh(`sh_name`,`sh_id`,`sh_pwd`,`sh_yxq`,`sh_max_ci`,`sh_dz`,`sh_insert_id`,`sh_dh`,`sh_state`,`sh_id_hash`) VALUES ('$yhname','$yhid','$yhpwd','$yhdate','$yhnum','$yhadd','$ad_id','$yhtel','Y','$yh_id_hash');";
                     // echo $sql;
                     $yh     =   mysqli_query($link, $sql);

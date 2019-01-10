@@ -46,7 +46,7 @@
             <div class="swiper-slide"><img src="images/pin.png" alt=""></div>
         </div>
         <div class="weui-grids">
-            <a href="sh_new_pt.php" class="weui-grid js_grid">
+            <a href="sh_newPt.php" class="weui-grid js_grid">
                 <div class="weui-grid__icon">
                     <i class="iconfont">&#xe602;</i>
                 </div>
